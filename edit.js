@@ -15,7 +15,7 @@ async function editData() {
     console.log(obj);
 
     await fetch(`${url}/${id}`, {
-        method: "PATCH",
+        method: "PUT",
         headers: {
             "content-type": "application/json"
         },

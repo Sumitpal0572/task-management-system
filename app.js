@@ -1,25 +1,24 @@
 let url = `http://localhost:3000/tasks`
 
-let main = document.getElementById("container");
-getData();
 
-async function getData() {
+let getData = async (url) => {
     try {
         let res = await fetch(`${url}`)
         let data = await res.json()
         console.log(data);
-        DisplayData(data);
-
-
+        displayData(data);
     } catch (error) {
-        console.log("error");
+        console.log(error);
     }
 }
 
-function DisplayData(arr) {
+getData(url);
+
+function displayData(data) {
+    let main = document.getElementById("container");
     main.innerHTML = ""
 
-    arr.forEach((ele) => {
+    data.forEach((ele) => {
         let card = document.createElement("div");
 
         let id = document.createElement("p");
@@ -37,9 +36,7 @@ function DisplayData(arr) {
         let date = document.createElement("p")
         date.textContent = ele.date;
 
-        let priority = document.createElement("div")
-        priority.textContent = ele.priority
-
+    
         let edtBtn = document.createElement("button")
         edtBtn.textContent = "Edit";
 
@@ -55,14 +52,26 @@ function DisplayData(arr) {
             let response = await fetch(`${url}/${ele.id}`, {
                 method: "DELETE"
             })
-            getData()
+            getData(url)
         })
 
-        card.append(id, title, dis, status, date, priority, edtBtn, dltbtn)
+        card.append(id, title, dis, status, date, edtBtn, dltbtn)
         main.append(card);
     })
 }
 
+let filter = document.getElementById("filter")
+filter.addEventListener("click", function () {
+    filterData();
+})
+
+function filterData() {
+    let filterVal = filter.value;
+    console.log(filterVal);
+    getData(`${url}?status=${filterVal}`)
+}
+
+// pagination
 let count = 1;
 let next = document.getElementById("next");
 next.addEventListener("click", function () {
@@ -82,5 +91,5 @@ prev.addEventListener("click", function () {
 
 function nextData() {
     main.innerHTML = ""
-    getData(`http://localhost:3000/tasks` `?_page=${page}&_limit=5`)
+    getData(`http://localhost:3000/tasks`)
 }

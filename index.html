@@ -17,20 +17,34 @@
             border: 2px solid black;
             padding: 10px;
         }
+
+        #main a {
+            color: red;
+        }
     </style>
 </head>
 
 <body>
-    <div id="main">
-        <a href="index.html"></a>
-        <a href="create.html"></a>
-    </div>
-    <div id="container">
+    <nav>
+        <div id="main">
+            <a href="index.html">Home</a>
+            <a href="create.html">create</a>
+        </div>
+    </nav>
 
+
+    <select name="filter" id="filter">
+        <option value="">Filter by status</option>
+        <option value="open">Open</option>
+        <option value="In progress">In-progress</option>
+        <option value="Closed">Closed</option>
+    </select>
+
+    <div id="container">
     </div>
 
     <div id="pagination">
-        <button id="prev" name="" prev>Previous</button>
+        <button id="prev" name="prev">Previous</button>
         <button id="next" name="next">Next</button>
     </div>
 
